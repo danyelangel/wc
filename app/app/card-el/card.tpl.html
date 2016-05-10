@@ -1,0 +1,93 @@
+<div class="card-wrapper" 
+     layout="row"
+     layout-xs="column"
+     layout-align="center center"
+     ng-mouseenter="hover=true"
+     ng-mouseleave="hover=false"
+     ng-class="{'md-whiteframe-5dp': hover && !$ctrl.wcState.preview}">
+  <div flex-xs="noshrink"
+       flex-gt-xs="45"
+       layout="column" 
+       flex-order-xs="2"
+       layout-padding
+       ng-class="{'centered': !$ctrl.wcData.img}"
+       layout-align="{{$ctrl.wcData.img ? 'start start' : 'center center'}}">
+      
+    <editable-text-el
+            wc-data="$ctrl.wcData.subtitle[$ctrl.wcState.lang]"
+            wc-class="['h2']"
+            on-update="$ctrl.updateData('subtitle')"
+
+            text-placeholder="Subtitle"
+            disable-extra-spaces="true"
+            disable-return="true"
+
+            disable-editing="$ctrl.wcState.preview"
+            ng-if="$ctrl.wcData.subtitle[$ctrl.wcState.lang] || !$ctrl.wcState.preview">
+    </editable-text-el>
+    <editable-text-el
+            wc-data="$ctrl.wcData.title[$ctrl.wcState.lang]"
+            wc-class="['h1']"
+            on-update="$ctrl.updateData('title')"
+
+            text-placeholder="{{$ctrl.wcState.preview?'':'Title'}}"
+            disable-extra-spaces="true"
+            disable-return="true"
+
+            disable-editing="$ctrl.wcState.preview"
+            ng-if="$ctrl.wcData.title[$ctrl.wcState.lang] || !$ctrl.wcState.preview">
+    </editable-text-el>
+    <div class="separator" 
+         ng-style="{'backgroundColor': $ctrl.display.styles.color}"
+         ng-if="$ctrl.wcData.title[$ctrl.wcState.lang]"></div>
+    <!--Editable Text Element-->
+    <editable-text-el
+            wc-data="$ctrl.wcData.p[$ctrl.wcState.lang]"
+            on-update="$ctrl.updateData('p')"
+
+            text-placeholder="Description"
+            toolbar-buttons="['bold','italic','underline','unorderedlist','anchor']"
+            disable-extra-spaces="true"
+
+            disable-editing="$ctrl.wcState.preview"
+            ng-if="$ctrl.text[$ctrl.wcState.lang].p !== '<p><br></p>'">
+    </editable-text-el>
+
+  </div>
+
+  <div flex-gt-xs="50"
+       layout="column" 
+       layout-align="center center" 
+       layout-padding
+       ng-if="$ctrl.wcData.img">
+    <figure>
+      <image-el wc-data="$ctrl.wcData.img.metadata"
+                wc-state="$ctrl.wcState"
+                img-type="image/png"
+                img-file="$ctrl.imgFile"
+                max-size="600"
+                on-update="$ctrl.updateImage"
+                on-remove="$ctrl.removeImage">
+      </image-el>
+      <figcaption>{{$ctrl.wcData.img.caption[$ctrl.wcState.lang]}}</figcaption>
+    </figure>
+  </div>
+  
+  <div class="edit-controls"
+       ng-if="!$ctrl.wcState.preview"
+       ng-class="{show: hover && !$ctrl.wcState.preview}"
+       ng-style="{color: $ctrl.display.styles.color}">
+    <md-button class="md-icon-button"
+               ng-if="!$ctrl.wcData.img"
+               ngf-select="$ctrl.uploadImage($file)"
+               ngf-multiple="false"
+               accept="image/*"
+               ngf-resize="{
+                             width: 600,
+                             height: 600
+                           }">
+      <i class="material-icons">image</i>
+      <md-tooltip>Add Image</md-tooltip>
+    </md-button>
+  </div>
+</div>

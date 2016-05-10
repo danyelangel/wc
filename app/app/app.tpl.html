@@ -1,0 +1,50 @@
+<!--Navbar-->
+<nav-el title="'Kina'" 
+        lang="$ctrl.lang"
+        preview="$ctrl.preview"
+        md-theme="dark"></nav-el>
+
+<!--Loading-->
+<md-progress-linear md-theme="dark" md-mode="indeterminate" ng-if="!$ctrl.rootChildren"></md-progress-linear>
+
+<!--Slides-->
+<div ng-repeat="(key, child) in $ctrl.rootChildren">
+  <slide-el  
+            wc-data="child.data"
+            wc-display="child.display"
+            wc-display-default="$ctrl.root.display"
+            wc-child-id="child.childId"
+            wc-state="{lang: $ctrl.lang, preview: $ctrl.preview}"
+
+            on-remove="$ctrl.removeSlide(key)"
+            on-update="$ctrl.updateSlide(key)">
+  </slide-el>
+</div>
+
+<!--Add Slide-->
+<add-slide class="bottom"
+           ng-if="!$ctrl.preview"
+           ng-click="$ctrl.addSlide()" 
+           ng-show="$ctrl.rootChildren && !$ctrl.addingSlide">
+  <i class="material-icons">add</i>
+</add-slide>
+<add-slide class="bottom loading"
+           ng-show="$ctrl.addingSlide">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</add-slide>
+
+<!--Footer-->
+<div class="footer" style="text-align: center;">
+  <editable-text-el
+          wc-data="$ctrl.root.data.footer[$ctrl.lang]"
+          wc-class="['h1']"
+          on-update="$ctrl.updateData('footer')"
+
+          text-placeholder="{{$ctrl.preview?'':'Footer'}}"
+          disable-extra-spaces="true"
+          toolbar-buttons="['bold','italic','underline','anchor']"
+
+          disable-editing="$ctrl.preview"
+          ng-if="$ctrl.root.data.footer">
+  </editable-text-el>
+</div>

@@ -1,0 +1,209 @@
+<div class="slide-wrapper"
+     ng-style="$ctrl.Display.computedStyle($ctrl.wcDisplayDefault, $ctrl.wcDisplay)"
+     layout="row"
+     layout-align="center center"
+     ng-mouseenter="hover=true"
+     ng-mouseleave="hover=false">
+  
+  <div sn-skrollr
+       data-140p-bottom="{{$ctrl.getParallax()}}" 
+       data-center="transform: translateY(0vh)"
+       data--140p-top="{{$ctrl.getParallax(true)}}"
+       class="background"
+       
+       ng-style="{backgroundImage: 'url('+$ctrl.wcData.background.metadata.httpsURL+')', '-webkit-filter': $ctrl.getBlur(), 'filter': $ctrl.getBlur(), '-webkit-filter': $ctrl.getBlur()}">
+  </div>
+  
+  <div class="slide-container"
+       ng-class="$ctrl.Display.computedClass($ctrl.wcDisplayDefault, $ctrl.wcDisplay)"
+       layout="row" 
+       layout-xs="column"
+       layout-margin
+       layout-align="center center"
+       layout-wrap>
+    
+    <card-el wc-data="$ctrl.wcData"
+             wc-display="$ctrl.wcDisplay"
+             wc-display-default="$ctrl.display"
+             wc-state="$ctrl.wcState"
+             on-update="$ctrl.updateCard"
+             layout-fill>
+    </card-el>
+    
+  </div>
+  
+  <div class="background-caption">
+    <figcaption>{{$ctrl.wcData.background.caption[$ctrl.wcState.lang]}}</figcaption>
+  </div>
+  
+  <div class="edit-controls"
+       ng-if="!$ctrl.wcState.preview"
+       ng-class="{show: hover && !$ctrl.wcState.preview}"
+       ng-style="{color: $ctrl.display.styles.color}">
+    
+    <md-button class="md-icon-button"
+               ngf-select="$ctrl.updateBackgroundImage($file)"
+               ngf-multiple="false"
+               accept="image/*"
+               ngf-resize="{
+                 width: 1920,
+                 height: 1920
+               }"
+               ng-if="!$ctrl.wcData.background">
+      <i class="material-icons">panorama</i>
+      <md-tooltip>Upload background image</md-tooltip>
+    </md-button>
+    
+    <md-menu md-position-mode="target-right target" 
+             style="padding:0"
+             ng-if="$ctrl.wcData.background">
+      <md-button class="md-icon-button" 
+                 ng-click="$mdOpenMenu($event)">
+        <i class="material-icons" md-menu-origin>panorama</i>
+        <md-tooltip>Change background</md-tooltip>
+      </md-button>
+      <md-menu-content width="4">
+        
+        <md-menu-item>
+          <md-button ngf-select="$ctrl.updateBackgroundImage($file)"
+                     ngf-multiple="false"
+                     accept="image/*"
+                     ngf-resize="{
+                       width: 1920,
+                       height: 1920
+                     }">
+            <div layout="row" flex>
+              <p>Upload</p>
+              <div flex></div>
+              <md-icon md-menu-align-target>
+                <i class="material-icons">image</i>
+              </md-icon>
+            </div>
+          </md-button>
+        </md-menu-item>
+        
+        <md-menu-item>
+          <md-button ng-click="$ctrl.removeBackground()">
+            <div layout="row" flex>
+              <p>Delete background</p>
+              <div flex></div>
+              <md-icon md-menu-align-target>
+                <i class="material-icons">delete</i>
+              </md-icon>
+            </div>
+          </md-button>
+        </md-menu-item>
+        
+      </md-menu-content>
+    </md-menu>
+    
+    <md-menu md-position-mode="target-right target" 
+             style="padding:0">
+      <md-button class="md-icon-button" 
+                 ng-click="$mdOpenMenu($event)">
+        <i class="material-icons" md-menu-origin>style</i>
+        <md-tooltip>Styles</md-tooltip>
+      </md-button>
+      <md-menu-content width="4">
+        
+        <md-menu-item ng-if="!$ctrl.wcData.background">
+          <md-button ng-click="$ctrl.updateBackgroundColor()">
+      <div layout="row" flex>
+              <p>Background color</p>
+              <div flex></div>
+              <md-icon md-menu-align-target>
+                <i class="material-icons">palette</i>
+              </md-icon>
+            </div>
+          </md-button>
+        </md-menu-item>
+        
+        <md-menu-item>
+          <md-button ng-click="$ctrl.updateTextColor()">
+      <div layout="row" flex>
+              <p>Text color</p>
+              <div flex></div>
+              <md-icon md-menu-align-target>
+                <i class="material-icons">format_color_text</i>
+              </md-icon>
+            </div>
+          </md-button>
+        </md-menu-item>
+        
+        <md-menu-divider ng-if="$ctrl.wcData.background"></md-menu-divider>
+        
+        <md-menu-item ng-if="$ctrl.wcData.background">
+          <md-button ng-click="$ctrl.updateBlur()">
+            <div layout="row" flex>
+              <p>Background Blur</p>
+              <div flex></div>
+              <md-icon md-menu-align-target>
+                <i class="material-icons">blur_on</i>
+              </md-icon>
+            </div>
+          </md-button>
+        </md-menu-item>
+        
+      </md-menu-content>
+    </md-menu>
+    
+    <md-menu md-position-mode="target-right target" 
+             style="padding:0">
+      <md-button class="md-icon-button" 
+                 ng-click="$mdOpenMenu($event)">
+        <i class="material-icons" md-menu-origin>more_vert</i>
+      </md-button>
+      <md-menu-content width="4">
+        
+        <md-menu-item>
+          <md-button ng-click="$ctrl.addToMenu()">
+      <div layout="row" flex>
+              <p>Add to Menu</p>
+              <div flex></div>
+              <md-icon md-menu-align-target>
+                <i class="material-icons">loupe</i>
+              </md-icon>
+            </div>
+          </md-button>
+        </md-menu-item>
+        
+        <md-menu-divider></md-menu-divider>
+        
+        <md-menu-item>
+          <md-button ng-click="$ctrl.remove()">
+      <div layout="row" flex>
+              <p>Delete slide</p>
+              <div flex></div>
+              <md-icon md-menu-align-target>
+                <i class="material-icons">delete</i>
+              </md-icon>
+            </div>
+          </md-button>
+        </md-menu-item>
+        
+      </md-menu-content>
+    </md-menu>
+    
+  </div>
+  
+  <div class="edit-slider md-whiteframe-2dp show" 
+       md-theme="dark"
+       layout-padding
+       ng-if="$ctrl.slider"> 
+    <div layout="row"
+         flex>
+      <md-slider flex 
+                 md-discrete 
+                 ng-model="$ctrl.slider.value"
+                 ng-change="$ctrl.slider.onChange($ctrl.slider.value)"
+                 step="1" 
+                 min="0" 
+                 max="10" 
+                 aria-label="slider">
+      </md-slider>
+      <md-button class="md-raised"
+                 ng-click="$ctrl.slider=null">Done</md-button>
+    </div>
+  </div>
+  
+</div>

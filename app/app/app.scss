@@ -1,0 +1,61 @@
+app-el {
+  display: block;
+  add-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 2rem;
+    background: #212121;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  add-slide > i.material-icons {
+    font-size: 1rem;
+    color: #616161;
+  }
+  add-slide.bottom {
+    height: 6rem;
+  }
+  add-slide.bottom > i.material-icons {
+    font-size: 2rem;
+  }
+  add-slide:hover {
+    background: #424242;
+  }
+  add-slide.loading {
+    cursor: default;
+  }
+  add-slide.loading:hover {
+    background: #212121;
+  }
+}
+
+.footer {
+  padding: 4em;
+  background: #212121;
+  color: #fff;
+  font-size: 0.5em;
+  .h1 {
+    font-size: 2.5em;
+    color: #616161;
+    text-transform: none;
+    margin-bottom: 1em;
+    margin-top: 1em;
+  }
+  .h1,
+  a {
+    font-family: 'Lato', sans-serif;
+    z-index: 2;
+    font-weight: 400;
+    text-decoration: none;
+    opacity: 0.75;
+  }
+  a {
+    color: #ccc;
+    font-weight: 400;
+  }
+  a:hover {
+    opacity: 1;
+  }
+}

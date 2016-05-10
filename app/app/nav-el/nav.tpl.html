@@ -1,0 +1,36 @@
+<md-toolbar ng-if="true" class="toolbar" md-whiteframe="3" layout-align="center center"
+        ng-class="['l']">
+  <div class="md-toolbar-tools" style="max-width: 1024px;">
+    <img src="images/webcat-logo.png">
+    <h3 ng-class="['l']">
+      <span ng-bind-html="$ctrl.html($ctrl.title)"></span>
+    </h3>
+    <div flex></div>
+    <md-menu md-position-mode="target-right target">
+      <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+        <md-icon md-menu-origin><i class="material-icons">language</i></md-icon>
+        <md-tooltip>Language</md-tooltip>
+      </md-button>
+      <md-menu-content width="2">
+        <md-menu-item ng-repeat="item in ['en', 'es']">
+          <md-button ng-click="$ctrl.lang = item"> 
+            <span>{{item | uppercase}}</span>
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+    <md-button class="md-icon-button"
+               aria-label="Preview"
+               ng-click="$ctrl.preview = !$ctrl.preview">
+      <i class="material-icons"
+         ng-if="!$ctrl.preview">web</i>
+      <md-tooltip
+         ng-if="!$ctrl.preview">Preview</md-tooltip>
+      <i class="material-icons"
+         ng-if="$ctrl.preview">edit</i>
+      <md-tooltip
+         ng-if="$ctrl.preview">Edit</md-tooltip>
+    </md-button>
+  </div>
+</md-toolbar>
+<md-toolbar></md-toolbar>

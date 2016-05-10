@@ -1,0 +1,12 @@
+<div medium-editor
+     style="outline: none"
+
+     ng-model="$ctrl.wcData"
+     ng-class="$ctrl.wcClass"
+     ng-change="$ctrl.textChanged()"
+
+     data-placeholder="{{$ctrl.textPlaceholder}}"
+     bind-options="$ctrl.editorOptions"
+
+     ng-if="!$ctrl.refreshing">
+</div>

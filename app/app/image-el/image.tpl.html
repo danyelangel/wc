@@ -1,0 +1,27 @@
+<div class="thumbnail"
+     ng-mouseenter="hover=true"
+     ng-mouseleave="hover=false"
+     ng-class="{edit: hover && !$ctrl.wcState.preview}">
+  
+  <img ng-src="{{$ctrl.wcData.httpsURL}}"
+       ng-if="$ctrl.wcData"
+       alt="">
+  
+  <md-progress-circular md-mode="indeterminate" 
+                        ng-if="!$ctrl.wcData">
+  </md-progress-circular>
+  
+  <div class="imageUpdate"
+       ng-if="$ctrl.wcData && !$ctrl.wcState.preview">
+    <input type="file" 
+           accept="image/*"
+           ngf-select="$ctrl.update($file)"
+           ngf-resize="{width: $ctrl.maxSize, 
+                       height: $ctrl.maxSize}" />
+  </div>
+  
+  <div class="imageDelete"
+       ng-if="$ctrl.wcData && !$ctrl.wcState.preview"
+       ng-click="$ctrl.remove()"></div>
+  
+</div>

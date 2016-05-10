@@ -1,0 +1,78 @@
+slide-el {
+  // Base Styles
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  display: block;
+  .slide-container {
+    max-width: 1024px;
+    width: 100%;
+    z-index: 2;
+  }
+  .background-caption {
+    z-index: 2;
+    position: absolute;
+    max-width: 10em;
+    left: 2em;
+    bottom: 2em;
+  }
+  
+  .background, .background-blur {
+    position: absolute;
+    top: 0;
+    bottom:0;
+    left:0;
+    right:0;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 0;
+  }
+  // Webcat Classes
+  .slide-container {
+    transition: all 0.3s;
+  }
+  @for $i from 1 through 10 {
+    .spacing-#{$i} { 
+      margin-top: 1.5em * $i;
+      margin-bottom: 1.5em * $i; 
+    }
+    .fontSize-#{$i} { 
+      font-size: 0.2rem * $i; 
+    }
+  }
+  .fontSize-1 {
+    font-size: 0.85rem;
+  }
+  .fontSize-10 {
+    font-size: 1.5rem;
+  }
+  .edit-slider, .edit-controls {
+    position: absolute;
+    display: flex;
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+  .edit-controls {
+    top: 2em;
+    right: 2em;
+  }
+  .edit-slider {
+    top: 2em;
+    right: 2em;
+    background: #fff;
+    z-index: 10;
+    min-width: 20em;
+  }
+  .edit-controls.show, .edit-slider.show {
+    opacity: 1;
+  }
+  .edit-controls > md-button {
+    transition: opacity 0.1s;
+  }
+  .edit-controls > md-button:hover {
+    opacity: 0.75;
+  }
+}
